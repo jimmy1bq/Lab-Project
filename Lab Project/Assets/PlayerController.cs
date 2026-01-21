@@ -6,12 +6,16 @@ public class CharController : MonoBehaviour
     [SerializeField] float speed;
     [SerializeField] float sensitivty;
     [SerializeField] float sprintSpeed;
+    [SerializeField] float jumpForce;
+    [SerializeField] float gravity;
 
     private float moveFr;
     private float moveLr;
 
     private float rotX;
     private float rotY;
+
+    private Vector3 jumpVelocity = Vector3.zero;
 
     private Camera playerCam;
 
@@ -55,6 +59,21 @@ public class CharController : MonoBehaviour
         transform.Rotate(0, rotX, 0);
         playerCam.transform.localRotation = Quaternion.Euler(rotY, 0, 0);
         combineMovementVector = transform.rotation * combineMovementVector;
-        cc.Move(combineMovementVector * Time.deltaTime);
+        if (cc.isGrounded)
+        {
+            if (jumpVelocity.y < 0)
+            {
+                jumpVelocity.y = -2f;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                jumpVelocity.y = jumpForce;
+            }
+        }
+        if (!cc.isGrounded)
+        {
+            jumpVelocity.y -= gravity * Time.deltaTime;
+        }
+        cc.Move((combineMovementVector + jumpVelocity) * Time.deltaTime);
     }
 }
