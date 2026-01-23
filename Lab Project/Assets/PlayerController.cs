@@ -17,12 +17,16 @@ public class CharController : MonoBehaviour
 
     private Vector3 jumpVelocity = Vector3.zero;
 
+    private GameObject equippedWeapon;
+
     private Camera playerCam;
 
     private CharacterController cc;
 
     void Start()
     {
+        equippedWeapon = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+
         Cursor.lockState = CursorLockMode.Locked;
 
         cc = GetComponent<CharacterController>();
@@ -32,6 +36,15 @@ public class CharController : MonoBehaviour
     void Update()
     {
         Move();
+        if (Input.GetButtonDown("Fire1"))
+        {
+            equippedWeapon.gameObject.GetComponent<IWeapon>().callShoot();
+        }
+        if (Input.GetKeyDown(KeyCode.R)) 
+        {
+            equippedWeapon.gameObject.GetComponent<IReload>().callReload();
+
+        }
     }
     private void Move()
     {
@@ -76,4 +89,5 @@ public class CharController : MonoBehaviour
         }
         cc.Move((combineMovementVector + jumpVelocity) * Time.deltaTime);
     }
+
 }
