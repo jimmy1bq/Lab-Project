@@ -17,7 +17,7 @@ public class CharController : MonoBehaviour
 
     private Vector3 jumpVelocity = Vector3.zero;
 
-    private GameObject equippedWeapon;
+    private Weapon equippedWeapon;
 
     private Camera playerCam;
 
@@ -25,7 +25,7 @@ public class CharController : MonoBehaviour
 
     void Start()
     {
-        equippedWeapon = gameObject.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
+        equippedWeapon =GetComponentInChildren<Weapon>();
 
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -38,7 +38,7 @@ public class CharController : MonoBehaviour
         Move();
         if (Input.GetButtonDown("Fire1"))
         {
-            equippedWeapon.gameObject.GetComponent<IWeapon>().callShoot();
+           equippedWeapon.callShoot();
         }
         if (Input.GetKeyDown(KeyCode.R)) 
         {

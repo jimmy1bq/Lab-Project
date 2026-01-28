@@ -34,14 +34,15 @@ public abstract class Weapon : MonoBehaviour, IReload, IWeapon
     //reloads the gun mainly just to call the coroutine for reloading bullets
     protected virtual void reload()
     {
-        if (curBulletCount == bulletCount && onGoingReloadCorotuine == null)
-        {
-            Debug.Log("Can't reload");
-        }
-        else
+
+        if (curBulletCount < bulletCount && onGoingReloadCorotuine == null)
         {
             onGoingReloadCorotuine = StartCoroutine(reloadingBullets());
         }
+        else
+        {
+            Debug.Log("CANT RELOAD");
+        }        
 
     }
     //the majority of the reload logic happens here
@@ -55,11 +56,12 @@ public abstract class Weapon : MonoBehaviour, IReload, IWeapon
         {
             StartCoroutine(reloadingBullets());
         }
+        else { onGoingReloadCorotuine = null; }
     }
     protected void updateAmmoCountSlider()
     {
-        Debug.Log(ammoCountSilderGUI);
-        ammoCountSilderGUI.GetComponent<Scrollbar>().size = curBulletCount / bulletCount;
+     
+        ammoCountSilderGUI.GetComponent<Slider>().value = curBulletCount / bulletCount;
         ammoCountSilderGUI.transform.Find("AmmoCount").GetComponent<TextMeshProUGUI>().text = curBulletCount.ToString() + "/" + bulletCount.ToString();
         ammoCountSilderGUI.transform.Find("TotalAmmoLeftText").GetComponent<TextMeshProUGUI>().text = "Total Ammo Left: " + totalBulletInInventory.ToString();
     }
