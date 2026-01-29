@@ -9,7 +9,7 @@ public class Pistol : Weapon, IWeapon
         bulletCount = 10;
         curBulletCount = 10;
         totalBulletInInventory = 50;
-        updateAmmoCountSlider(); 
+        UIManager.instance.updateAmmoCountSlider(curBulletCount, bulletCount, totalBulletInInventory);
         firePoint = transform.Find("FirePoint").transform;
     }
 
@@ -30,8 +30,8 @@ public class Pistol : Weapon, IWeapon
             {
                 Debug.Log("Hit " + hit.transform.name);
             }
-            curBulletCount--;
-            updateAmmoCountSlider();
+          curBulletCount--;
+          base.shoot();
         }
     }
 }

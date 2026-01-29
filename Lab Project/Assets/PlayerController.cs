@@ -36,6 +36,7 @@ public class CharController : MonoBehaviour
     void Update()
     {
         Move();
+        //abstract class vs interface which oen is better?
         if (Input.GetButtonDown("Fire1"))
         {
            equippedWeapon.callShoot();
@@ -43,7 +44,6 @@ public class CharController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) 
         {
             equippedWeapon.gameObject.GetComponent<IReload>().callReload();
-
         }
     }
     private void Move()

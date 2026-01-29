@@ -29,7 +29,7 @@ public abstract class Weapon : MonoBehaviour, IReload, IWeapon
     // Update is called once per frame
     protected virtual void shoot()
     {
-
+        UIManager.instance.updateAmmoCountSlider(curBulletCount, bulletCount, totalBulletInInventory);
     }
     //reloads the gun mainly just to call the coroutine for reloading bullets
     protected virtual void reload()
@@ -50,7 +50,7 @@ public abstract class Weapon : MonoBehaviour, IReload, IWeapon
     {
         curBulletCount++;
         totalBulletInInventory--;
-        updateAmmoCountSlider();
+        UIManager.instance.updateAmmoCountSlider(curBulletCount,bulletCount,totalBulletInInventory);
         yield return reloadInbetweenBulletTime;
         if (curBulletCount != bulletCount || totalBulletInInventory! <= 0)
         {
@@ -58,13 +58,7 @@ public abstract class Weapon : MonoBehaviour, IReload, IWeapon
         }
         else { onGoingReloadCorotuine = null; }
     }
-    protected void updateAmmoCountSlider()
-    {
-     
-        ammoCountSilderGUI.GetComponent<Slider>().value = curBulletCount / bulletCount;
-        ammoCountSilderGUI.transform.Find("AmmoCount").GetComponent<TextMeshProUGUI>().text = curBulletCount.ToString() + "/" + bulletCount.ToString();
-        ammoCountSilderGUI.transform.Find("TotalAmmoLeftText").GetComponent<TextMeshProUGUI>().text = "Total Ammo Left: " + totalBulletInInventory.ToString();
-    }
+   
     public void callShoot()
     {
         shoot();
