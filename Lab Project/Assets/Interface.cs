@@ -7,3 +7,7 @@ public interface IReload
 {
     void callReload() { }
 }
+public interface ITriggerable
+{
+    void callTriggerAction() { }
+}

@@ -73,6 +73,7 @@ public class CharController : MonoBehaviour
         playerCam.transform.localRotation = Quaternion.Euler(rotY, 0, 0);
         combineMovementVector = transform.rotation * combineMovementVector;
         if (cc.isGrounded)
+
         {
             if (jumpVelocity.y < 0)
             {
@@ -89,5 +90,13 @@ public class CharController : MonoBehaviour
         }
         cc.Move((combineMovementVector + jumpVelocity) * Time.deltaTime);
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.GetComponent<ITriggerable>()!=null)
+        {
+            other.gameObject.GetComponent<ITriggerable>().callTriggerAction();
+        }
+    }
+  
 
 }

@@ -28,7 +28,8 @@ public class Pistol : Weapon, IWeapon
             RaycastHit hit;
             if (Physics.Raycast(firePoint.position, shootDirection, out hit, range))
             {
-                Debug.Log("Hit " + hit.transform.name);
+
+                Debug.Log("PEW");
             }
           curBulletCount--;
           base.shoot();
