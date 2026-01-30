@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - AmmoCountSliderTag
+  - Button
+  - TopViewCam
   layers:
   - Default
   - TransparentFX
